@@ -1,0 +1,32 @@
+{
+  "name": "taylon-james-earle",
+  "version": "1.0.0",
+  "description": "Taylon James Earle",
+  "main": "app.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon . & npm run scss",
+    "scss": "sass --watch /scss/index.scss public/css/style.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Taylon Earle",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "bootstrap": "^5.2.2",
+    "bootstrap-icons": "^1.9.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "env": "^0.0.2",
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "md5": "^2.3.0",
+    "nodemailer": "^6.8.0",
+    "sass": "^1.55.0"
+  },
+  "devDependencies": {
+    "node-sass": "^7.0.3",
+    "nodemon": "^2.0.20"
+  }
+}

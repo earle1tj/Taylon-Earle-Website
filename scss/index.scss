@@ -1,0 +1,129 @@
+$color_1: white;
+
+@import "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css";
+
+/* DRINK PAGE */
+
+
+.bodycontainer {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    flex: 1;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    scroll-behavior: smooth;
+    width: 100vw;
+}
+
+
+.mainh1 { 
+    font-size: 10vw !important;
+}
+ .mainp {
+        font-size: 5vw !important;
+    }
+
+
+
+
+#mainhero {   
+    background: rgb(64, 73, 255);
+    color: white;
+}
+footer {
+    align-items: center;
+    justify-content: center;
+}
+
+hr.style13 {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.miscbody {
+    margin: 10vh auto auto auto;
+    justify-content: center;
+    align-items: center;
+    display: flex-column;
+}
+
+.gridbody {
+    margin-top: 5vh;
+    width: 50vw;
+}
+
+
+.formcheckbox { 
+    padding-right: 10px !important;
+    background-color: blue;
+}
+
+
+@media screen and (min-width: 425px) {
+
+    .formgroup { 
+        width: 100% !important;
+    }
+
+ .contacttext{ 
+       font-size: 250px !important;
+    }
+
+#mainhero { 
+    height: 50vh;
+}
+
+.mainh1 { 
+    font-size: 5rem !important;
+}
+ .mainp {
+        font-size: 2.5rem !important;
+    }
+
+    
+
+}
+
+
+
+
+   
+@media screen and (max-width: 425px) {
+
+    .formgroup { 
+        width: 100% !important;
+    }
+
+ .contacttext{ 
+       font-size: 250px !important;
+    }
+
+    #mainhero {
+    width: 100% !important;
+    height: 100vh !important;
+}
+
+.mainh1 { 
+    font-size: 5rem !important;
+}
+ .mainp {
+        font-size: 2.5rem !important;
+    }
+
+
+
+
+}

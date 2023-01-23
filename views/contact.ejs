@@ -1,0 +1,45 @@
+<%- include('partials/header'); -%>
+
+<div class="miscbody">
+        <!--Section heading-->
+        <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+        <!--Section description-->
+        <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us
+            directly. Our team will come back to you within
+            a matter of hours to help you.</p>
+
+ <div class="container w-100 justify-content-center formgroup">
+<form action="/contact" method="post" class="form-horizontal">
+<div class="row">
+    <div class="col">
+        <input type="text" class="form-control" placeholder="Name" aria-label="name" name="name" required>
+    </div>
+    <div class="col">
+        <input type="email" class="form-control" placeholder="Email" name="email" aria-label="email">
+    </div>
+</div>
+
+<div class="mb-3 m-5">
+    <label for="subject" class="form-label">Email Subject</label>
+    <textarea class="form-control" id="subject" rows="1" name="subject"></textarea>
+</div>
+
+<div class="mb-3 m-5">
+    <label for="message" class="form-label">How can we help?</label>
+    <textarea class="form-control" id="message" rows="3" name="message"></textarea>
+</div>
+
+<div class="form-check mt-5">
+    <input class="form-check-input" type="checkbox" value="Authorization to Email Back" name="authorization" id="flexCheckDefault">
+    <label class="form-check-label" for="flexCheckDefault">
+        By checking this box and submitting your information, you are granting us permission to email you.
+    </label>
+</div>
+
+    <button type="submit" class="btn btn-primary m-5">Submit</button>
+</form>
+</div>
+    
+</div>
+
+    <%- include('partials/footer'); -%>
