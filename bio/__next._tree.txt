@@ -1,0 +1,5 @@
+:HL["/_next/static/css/1bfee22092ffd079.css","style"]
+:HL["/portfolio-01.jpg","image"]
+:HL["/portfolio-04.jpg","image"]
+:HL["/portfolio-05.jpg","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"bio","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"VNFBZHqmDvjQYsTKTo7JY"}
