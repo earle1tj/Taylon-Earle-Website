@@ -1,0 +1,4 @@
+---
+deployment:
+  tasks:
+    - /bin/cp -f cpanel/contact.php /home/taylsqya/public_html/contact.php
