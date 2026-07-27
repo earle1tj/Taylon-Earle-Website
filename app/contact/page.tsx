@@ -9,8 +9,7 @@ export const metadata: Metadata = {
   description: "Contact and inquiry information for country artist Taylon James.",
 };
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
-  const { status } = await searchParams;
+export default function ContactPage() {
   return (
     <main id="main-content" className="inner-page">
       <SiteHeader active="contact" />
@@ -28,7 +27,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
           <p>Use the form and your message will be delivered to Taylon&apos;s official inbox. For a quick follow, the official music and social profiles are ready too.</p>
           <div className="contact-socials"><a href="https://open.spotify.com/artist/7zK9hcVbswawtVXa3lqEO9" target="_blank" rel="noreferrer">Spotify ↗</a><a href="https://music.apple.com/us/artist/taylon-james/6786917415" target="_blank" rel="noreferrer">Apple Music ↗</a><a href="https://www.instagram.com/TaylonJamesHE/" target="_blank" rel="noreferrer">Instagram ↗</a></div>
         </div>
-        <ContactForm status={status} />
+        <ContactForm />
       </section>
 
       <section className="contact-note page-shell">

@@ -4,6 +4,10 @@ import { SiteFooter } from "../../components/SiteFooter";
 import { SiteHeader } from "../../components/SiteHeader";
 import { journalPosts } from "../journalData";
 
+export function generateStaticParams() {
+  return journalPosts.map((post) => ({ slug: post.slug }));
+}
+
 export default async function JournalPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = journalPosts.find((item) => item.slug === slug);

@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export function ContactForm({ status }: { status?: string }) {
+export function ContactForm() {
   const startedAtRef = useRef<HTMLInputElement>(null);
+  const [status, setStatus] = useState<string>();
 
   useEffect(() => {
     if (startedAtRef.current) {
       startedAtRef.current.value = String(Date.now());
     }
+    setStatus(new URLSearchParams(window.location.search).get("status") ?? undefined);
   }, []);
 
   return (
