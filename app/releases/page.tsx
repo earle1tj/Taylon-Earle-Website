@@ -7,7 +7,7 @@ import { releaseSteps } from "../musicData";
 
 export const metadata: Metadata = {
   title: "Releases",
-  description: "Follow upcoming original music and releases from country artist Taylon James.",
+  description: "Follow Backroads & Broken Hearts, the debut original single from country artist Taylon James.",
 };
 
 export default function ReleasesPage() {
@@ -17,29 +17,26 @@ export default function ReleasesPage() {
       <InnerPageHero
         number="01"
         eyebrow="Original music"
-        title="The first chapter is being written."
-        intro="There isn’t a made-up discography hiding here. Taylon’s debut original music is still taking shape—and this page will grow with every real release."
+        title="The first chapter is being recorded."
+        intro="Backroads & Broken Hearts is officially in the studio. Follow the debut single from the first take to its estimated September release."
       />
 
       <section className="release-feature page-shell">
-        <div className="release-art" aria-label="Debut release artwork placeholder">
-          <img className="release-day-clouds clouds-back" src="/day-clouds-wispy.png" alt="" aria-hidden="true" />
-          <img className="release-day-clouds clouds-mid" src="/day-clouds-scattered.png" alt="" aria-hidden="true" />
-          <img className="release-day-clouds clouds-mid-alt" src="/day-clouds-scattered.png" alt="" aria-hidden="true" />
-          <img className="release-day-clouds clouds-front" src="/day-clouds.png" alt="" aria-hidden="true" />
-          <span>Original music</span>
-          <strong>Taylon<br />James</strong>
-          <i>Coming soon</i>
+        <div className="release-art release-cover">
+          <img
+            src="/backroads-broken-hearts-cover.webp"
+            alt="Backroads & Broken Hearts cover artwork by Taylon James, set on a misty forest road"
+          />
         </div>
         <div className="release-copy">
           <p className="micro-label">Next release</p>
-          <h2>Debut single</h2>
-          <p className="release-status">Title and release date to be announced</p>
+          <h2>Backroads &amp;<br />Broken Hearts</h2>
+          <p className="release-status">Recording <span aria-hidden="true">·</span> Estimated release: September 2026</p>
           <p>
-            The goal is simple: honest country storytelling, a voice that feels
-            lived-in, and production that knows when to get out of the song’s way.
+            A small-town country song about growing up gay, finding a voice, and
+            carrying every backroad and broken heart into the person you become.
           </p>
-          <Link className="text-link" href="/contact">Ask about the project <span>→</span></Link>
+          <Link className="text-link" href="/contact">Ask about the single <span>→</span></Link>
         </div>
       </section>
 

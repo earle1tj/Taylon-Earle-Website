@@ -23,7 +23,7 @@ export const coverProjects = [
 ];
 
 export const releaseSteps = [
-  { label: "Writing", detail: "Finding the stories worth singing", active: true },
-  { label: "Recording", detail: "Building the sound, one honest take at a time", active: false },
-  { label: "Debut release", detail: "Title and date to be announced", active: false },
+  { label: "Writing", detail: "Backroads & Broken Hearts takes shape", active: false },
+  { label: "Recording", detail: "Building the sound, one honest take at a time", active: true },
+  { label: "Debut release", detail: "Estimated September 2026", active: false },
 ];

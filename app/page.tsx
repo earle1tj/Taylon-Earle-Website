@@ -47,8 +47,8 @@ export default function Home() {
               <span className="coming-icon" aria-hidden="true">✦</span>
               <span className="coming-divider" aria-hidden="true" />
               <span>
-                <strong>Coming soon</strong>
-                <small>Original music is on the way.</small>
+                <strong>Recording now</strong>
+                <small>Backroads &amp; Broken Hearts · Est. September 2026</small>
               </span>
               <span className="coming-arrow" aria-hidden="true">→</span>
             </Link>

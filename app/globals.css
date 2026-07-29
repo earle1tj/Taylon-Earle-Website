@@ -370,7 +370,8 @@ html[data-theme="day"] .constellation-mark i { background: #b85f67; box-shadow: 
   .journal-art, .journal-art::before, .journal-art::after, .journal-art i,
   .journal-day-clouds,
   .book-cover, .book-cover::before, .book-cover::after, .book-cover i, .book-cover strong,
-  .book-day-clouds, .release-art, .release-day-clouds, .fall-leaf { animation: none !important; }
+  .book-day-clouds, .release-art, .release-art::before, .release-art::after,
+  .release-cover img, .release-day-clouds, .fall-leaf { animation: none !important; }
 }
 
 @keyframes day-sky-drift {
@@ -443,6 +444,58 @@ html[data-theme="day"] .release-day-clouds.clouds-front { width: 142%; left: -24
 html[data-theme="day"] .release-art > span,
 html[data-theme="day"] .release-art > strong,
 html[data-theme="day"] .release-art > i { position: relative; z-index: 2; }
+.release-art.release-cover {
+  padding: 0;
+  isolation: isolate;
+  background: #87958a;
+}
+.release-art.release-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transform: scale(1.025);
+  animation: release-cover-breathe 16s ease-in-out infinite alternate;
+}
+.release-art.release-cover::before {
+  display: block;
+  content: "";
+  position: absolute;
+  inset: -22%;
+  width: auto;
+  height: auto;
+  bottom: auto;
+  z-index: 1;
+  pointer-events: none;
+  transform: translate3d(-7%, 1%, 0) rotate(0deg);
+  background:
+    radial-gradient(ellipse at 25% 42%, rgba(236,244,226,.42) 0 10%, transparent 32%),
+    radial-gradient(ellipse at 72% 54%, rgba(213,229,214,.34) 0 9%, transparent 29%);
+  filter: blur(25px);
+  mix-blend-mode: screen;
+  box-shadow: none;
+  opacity: .34;
+  animation: release-cover-mist 18s ease-in-out infinite alternate;
+}
+.release-art.release-cover::after {
+  content: "";
+  position: absolute;
+  inset: -15% -34%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(104deg, transparent 25%, rgba(235,244,226,.21) 45%, rgba(255,248,226,.13) 53%, transparent 70%);
+  filter: blur(18px);
+  opacity: .28;
+  transform: translate3d(-13%, 0, 0);
+  animation: release-cover-haze 13s ease-in-out infinite alternate;
+}
+html[data-theme="day"] .release-art.release-cover {
+  background: #87958a;
+  animation: none;
+}
+html[data-theme="day"] .release-art.release-cover::before { display: block; }
 .release-copy h2, .section-heading h2, .cover-cta h2, .bio-copy h2, .contact-lead h2 {
   margin: 0; font-family: var(--font-display), Georgia, serif; font-size: clamp(3rem, 5vw, 5.1rem); font-weight: 500; line-height: .98; letter-spacing: -.025em;
 }
@@ -671,6 +724,18 @@ html[data-theme="day"] .form-note { color: #536173; }
 @keyframes leaf-fall-two { 0% { transform: translate3d(0,-8px,0) rotate(12deg); opacity: 0; } 14% { opacity: .62; } 86% { opacity: .55; } 100% { transform: translate3d(-28px,125px,0) rotate(-190deg); opacity: 0; } }
 @keyframes leaf-fall-three { 0% { transform: translate3d(0,-6px,0) rotate(-8deg); opacity: 0; } 18% { opacity: .55; } 82% { opacity: .5; } 100% { transform: translate3d(19px,105px,0) rotate(165deg); opacity: 0; } }
 @keyframes release-photo-drift { from { background-position: 45% center; } to { background-position: 56% center; } }
+@keyframes release-cover-breathe {
+  from { transform: scale(1.025) translate3d(-.35%, .2%, 0); filter: saturate(.94) contrast(1); }
+  to { transform: scale(1.055) translate3d(.45%, -.35%, 0); filter: saturate(1.03) contrast(1.025); }
+}
+@keyframes release-cover-mist {
+  from { transform: translate3d(-7%, 1%, 0) scale(.94); opacity: .2; }
+  to { transform: translate3d(9%, -2%, 0) scale(1.08); opacity: .43; }
+}
+@keyframes release-cover-haze {
+  from { transform: translate3d(-13%, 1%, 0) rotate(-1deg); opacity: .14; }
+  to { transform: translate3d(13%, -1%, 0) rotate(1deg); opacity: .36; }
+}
 @keyframes book-day-sweep { from { transform: rotate(-12deg) translateX(-7%); opacity: .55; } to { transform: rotate(-10deg) translateX(7%); opacity: 1; } }
 @keyframes aurora-shift { 0% { transform: translate3d(-8%,-4%,0) rotate(-7deg) scale(.9); } 48% { transform: translate3d(5%,8%,0) rotate(5deg) scale(1.13); } 100% { transform: translate3d(10%,-7%,0) rotate(-2deg) scale(1.04); } }
 @keyframes aurora-ribbon { from { transform: translate3d(-8%,4%,0) rotate(-14deg) scale(.88); opacity: .45; } to { transform: translate3d(12%,-7%,0) rotate(18deg) scale(1.18); opacity: .95; } }
