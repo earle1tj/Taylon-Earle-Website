@@ -1,27 +1,16 @@
-import { and, desc, eq } from "drizzle-orm";
-import { getDb } from "../../db";
-import { journalPosts } from "../../db/schema";
+import type { ResultSetHeader, RowDataPacket } from "mysql2";
+import { getJournalPool } from "../../db/mysql";
 
-export type StudioPost = Omit<typeof journalPosts.$inferSelect, "ownerEmail" | "createdAt" | "updatedAt">;
+export type StudioPost = { id: number; title: string; slug: string; category: string; publishedAt: string; excerpt: string; body: string; status: "draft" | "published" };
 export type StudioInput = Omit<StudioPost, "id">;
-
-export async function listOwnerPosts(email: string) {
-  return getDb().select({ id: journalPosts.id, title: journalPosts.title, slug: journalPosts.slug, category: journalPosts.category, publishedAt: journalPosts.publishedAt, excerpt: journalPosts.excerpt, body: journalPosts.body, status: journalPosts.status }).from(journalPosts).where(eq(journalPosts.ownerEmail, email)).orderBy(desc(journalPosts.updatedAt));
-}
-
-export async function listPublishedPosts() {
-  return getDb().select({ id: journalPosts.id, title: journalPosts.title, slug: journalPosts.slug, category: journalPosts.category, publishedAt: journalPosts.publishedAt, excerpt: journalPosts.excerpt, body: journalPosts.body, status: journalPosts.status }).from(journalPosts).where(eq(journalPosts.status, "published")).orderBy(desc(journalPosts.publishedAt));
-}
-
-export async function findOwnerPost(id: number, email: string) {
-  return getDb().select().from(journalPosts).where(and(eq(journalPosts.id, id), eq(journalPosts.ownerEmail, email))).get();
-}
-
-export function cleanInput(value: unknown): StudioInput {
-  const item = (value && typeof value === "object" ? value : {}) as Record<string, unknown>;
-  const status = item.status === "published" ? "published" : "draft";
-  const text = (key: string) => typeof item[key] === "string" ? item[key].trim() : "";
-  const title = text("title"); const slug = text("slug").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-  if (!title || !slug || !text("category") || !text("publishedAt") || !text("excerpt") || !text("body")) throw new Error("Complete every field before saving.");
-  return { title, slug, category: text("category"), publishedAt: text("publishedAt"), excerpt: text("excerpt"), body: text("body"), status };
-}
+type JournalRow = RowDataPacket & { id: number; title: string; slug: string; category: string; published_at: string | Date; excerpt: string; body: string; status: "draft" | "published" };
+const selectedColumns = "id, title, slug, category, published_at, excerpt, body, status";
+function mapRow(row: JournalRow): StudioPost { const publishedAt = row.published_at instanceof Date ? row.published_at.toISOString().slice(0,10) : String(row.published_at).slice(0,10); return { id:Number(row.id), title:row.title, slug:row.slug, category:row.category, publishedAt, excerpt:row.excerpt, body:row.body, status:row.status }; }
+export async function listOwnerPosts(email:string) { const [rows]=await getJournalPool().execute<JournalRow[]>(`SELECT ${selectedColumns} FROM journal_posts WHERE owner_email = ? ORDER BY updated_at DESC`,[email]); return rows.map(mapRow); }
+export async function listPublishedPosts() { const [rows]=await getJournalPool().execute<JournalRow[]>(`SELECT ${selectedColumns} FROM journal_posts WHERE status = 'published' ORDER BY published_at DESC, id DESC`); return rows.map(mapRow); }
+export async function findPublishedPost(slug:string) { const [rows]=await getJournalPool().execute<JournalRow[]>(`SELECT ${selectedColumns} FROM journal_posts WHERE slug = ? AND status = 'published' LIMIT 1`,[slug]); return rows[0]?mapRow(rows[0]):null; }
+export async function createPost(email:string,input:StudioInput) { const [result]=await getJournalPool().execute<ResultSetHeader>(`INSERT INTO journal_posts (owner_email,title,slug,category,published_at,excerpt,body,status) VALUES (?,?,?,?,?,?,?,?)`,[email,input.title,input.slug,input.category,input.publishedAt,input.excerpt,input.body,input.status]); return findOwnerPost(result.insertId,email); }
+export async function updatePost(id:number,email:string,input:StudioInput) { await getJournalPool().execute<ResultSetHeader>(`UPDATE journal_posts SET title=?,slug=?,category=?,published_at=?,excerpt=?,body=?,status=?,updated_at=CURRENT_TIMESTAMP WHERE id=? AND owner_email=?`,[input.title,input.slug,input.category,input.publishedAt,input.excerpt,input.body,input.status,id,email]); return findOwnerPost(id,email); }
+export async function deletePost(id:number,email:string) { const [result]=await getJournalPool().execute<ResultSetHeader>("DELETE FROM journal_posts WHERE id=? AND owner_email=?",[id,email]); return result.affectedRows===1?{id}:null; }
+async function findOwnerPost(id:number,email:string) { const [rows]=await getJournalPool().execute<JournalRow[]>(`SELECT ${selectedColumns} FROM journal_posts WHERE id=? AND owner_email=? LIMIT 1`,[id,email]); return rows[0]?mapRow(rows[0]):null; }
+export function cleanInput(value:unknown):StudioInput { const item=value&&typeof value==="object"?value as Record<string,unknown>:{}; const status=item.status==="published"?"published":"draft"; const text=(key:string)=>typeof item[key]==="string"?item[key].trim():""; const title=text("title"); const slug=text("slug").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,""); if(!title||!slug||!text("category")||!/^\d{4}-\d{2}-\d{2}$/.test(text("publishedAt"))||!text("excerpt")||!text("body")) throw new Error("Complete every field before saving."); return { title:title.slice(0,180), slug:slug.slice(0,190), category:text("category").slice(0,80), publishedAt:text("publishedAt"), excerpt:text("excerpt").slice(0,600), body:text("body").slice(0,100000), status }; }
